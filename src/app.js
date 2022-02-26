@@ -8,6 +8,8 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const MembersRouter = require('./Members/members-router');
 const MembersService = require('./Members/members-service');
+const ListsRouter = require('./Lists/lists-router');
+//const ListsService = require('./Lists/lists-service');
 
 const app = express();
 
@@ -19,7 +21,13 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.get('/members', MembersRouter);
+//app.get('/members', MembersRouter);
+
+app.get('/lists', ListsRouter);
+
+// app.get('/lists', (req, res) => {
+//   res.send('my lists');
+// });
 
 app.get('/members', (req, res, next) => {
   const knexInstance = req.app.get('db');
