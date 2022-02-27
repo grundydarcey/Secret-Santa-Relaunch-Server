@@ -24,24 +24,6 @@ app.use(cors());
 app.use('/members', MembersRouter);
 app.use('/lists', ListsRouter);
 
-// app.get('/members', (req, res, next) => {
-//   const knexInstance = req.app.get('db');
-//   MembersService.getAllMembers(knexInstance)
-//     .then(members => {
-//       res.json(members);
-//     })
-//     .catch(next);
-// });
-
-// app.get('/lists', (req, res, next) => {
-//   const knexInstance = req.app.get('db');
-//   ListsService.getAllLists(knexInstance)
-//     .then(lists => {
-//       res.json(lists);
-//     })
-//     .catch(next);
-// });
-
 app.get('/', (req, res) => {
   res.send('Hello, Santa!');
 });

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 const express = require('express');
 const xss = require('xss');
@@ -26,5 +27,28 @@ MembersRouter
       })
       .catch(next);
   });
+
+MembersRouter
+  .route('/:id')
+  .all((req, res, next) => {
+    MembersService.getById(
+      req.app.get('db'),
+      req.params.id
+    )
+      .then(member => {
+        if (!member) {
+          return res.status(404).json({
+            error: { message: `No such member found` }
+          });
+        }
+        res.member = member;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res, next) => {
+    res.json(serializeMember(res.member));
+  });
+
 
 module.exports = MembersRouter;
