@@ -7,9 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const MembersRouter = require('./Members/members-router');
-const MembersService = require('./Members/members-service');
 const ListsRouter = require('./Lists/lists-router');
-const ListsService = require('./Lists/lists-service');
 
 const app = express();
 

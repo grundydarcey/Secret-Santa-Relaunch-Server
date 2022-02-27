@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable quotes */
 const express = require('express');
 const xss = require('xss');
 //const path = require('path');
@@ -19,6 +21,28 @@ ListsRouter
         res.json(lists.map(serializeList));
       })
       .catch(next);
+  });
+
+ListsRouter
+  .route(':/users_id')
+  .all((req, res, next) => {
+    ListsService.getByUserId(
+      req.app.get('db'),
+      req.params.users_id
+    )
+      .then(lists => {
+        if (!lists) {
+          return res.status(404).json({
+            error: { message: `No items in users list` }
+          });
+        }
+        res.lists = lists;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res, next) => {
+    res.json(serializeList(res.lists));
   });
 
 module.exports = ListsRouter;
