@@ -1,6 +1,6 @@
 const ListsService = {
   getAllLists(knex) {
-    return knex.select('*').from('lists');
+    return knex.select('*').from('personallists');
   }
 };
 

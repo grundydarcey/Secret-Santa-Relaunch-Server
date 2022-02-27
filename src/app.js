@@ -9,7 +9,7 @@ const { NODE_ENV } = require('./config');
 const MembersRouter = require('./Members/members-router');
 const MembersService = require('./Members/members-service');
 const ListsRouter = require('./Lists/lists-router');
-//const ListsService = require('./Lists/lists-service');
+const ListsService = require('./Lists/lists-service');
 
 const app = express();
 
@@ -21,22 +21,26 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-//app.get('/members', MembersRouter);
+app.use('/members', MembersRouter);
+app.use('/lists', ListsRouter);
 
-app.get('/lists', ListsRouter);
-
-// app.get('/lists', (req, res) => {
-//   res.send('my lists');
+// app.get('/members', (req, res, next) => {
+//   const knexInstance = req.app.get('db');
+//   MembersService.getAllMembers(knexInstance)
+//     .then(members => {
+//       res.json(members);
+//     })
+//     .catch(next);
 // });
 
-app.get('/members', (req, res, next) => {
-  const knexInstance = req.app.get('db');
-  MembersService.getAllMembers(knexInstance)
-    .then(members => {
-      res.json(members);
-    })
-    .catch(next);
-});
+// app.get('/lists', (req, res, next) => {
+//   const knexInstance = req.app.get('db');
+//   ListsService.getAllLists(knexInstance)
+//     .then(lists => {
+//       res.json(lists);
+//     })
+//     .catch(next);
+// });
 
 app.get('/', (req, res) => {
   res.send('Hello, Santa!');
