@@ -7,7 +7,16 @@ const ListsService = {
       .from('personallists')
       .select('*')
       .where('users_id', users_id)
-      .all();
+      .any();
+  },
+  insertListItem(knex, newItem) {
+    return knex
+      .insert(newItem)
+      .into('personallists')
+      .returning('*')
+      .then(rows => {
+        return rows[0];
+      });
   }
 };
 
